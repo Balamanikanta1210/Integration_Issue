@@ -31,15 +31,5 @@ stages:
       inputs:
         versionType: 'AutoVersion'
         projectJsonPath: '$(Build.SourcesDirectory)'
-        orchestratorConnection: 'UiPath Cloud Orchestrator Staging Tenant'
         outputPath: '$(Build.ArtifactStagingDirectory)'
-        outputType: 'None'
-        runWorkflowAnalysis: false
         traceLevel: 'Information'
-
-    - task: PublishPipelineArtifact@1
-      displayName: Publish NuGet Package
-      inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)'
-        artifact: 'af_nuget'
-        publishLocation: 'pipeline'
