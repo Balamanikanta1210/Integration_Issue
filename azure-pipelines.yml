@@ -1,0 +1,45 @@
+# Starter pipeline
+
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+
+# Add steps that build, run tests, deploy, and more:
+
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: windows-latest
+
+stages:
+- stage: BuildAndDeploy
+  jobs:
+  - job: BuildAndDeployPackage
+    steps:
+    #- task: UiPathInstallPlatform@3
+    #  inputs:
+    #    cliVersion: 'WIN_22.10.8438.32859'
+    - task: UiPathInstallPlatform@4
+      inputs:
+        cliVersion: 'WIN_23.10.8894.39673'
+
+    - task: UiPathPack@4
+      displayName: Run Workflow Analysis and Pack Sourcecode
+      inputs:
+        versionType: 'AutoVersion'
+        projectJsonPath: '$(Build.SourcesDirectory)'
+        orchestratorConnection: 'UiPath Cloud Orchestrator Staging Tenant'
+        outputPath: '$(Build.ArtifactStagingDirectory)'
+        outputType: 'None'
+        runWorkflowAnalysis: false
+        traceLevel: 'Information'
+
+    - task: PublishPipelineArtifact@1
+      displayName: Publish NuGet Package
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'af_nuget'
+        publishLocation: 'pipeline'
