@@ -23,5 +23,5 @@ steps:
 - task: UiPathPack@4
   inputs:
     versionType: 'AutoVersion'
-    projectJsonPath: '$(Build.SourcesDirectory)'
+    projectJsonPath: '$(Build.SourcesDirectory)\1359-ocr-for-invoice-processing-cxm_Dispatcher - Not working'
     outputPath: '$(Build.ArtifactStagingDirectory)\Output'
