@@ -12,7 +12,7 @@ trigger:
       - main
 
 pool:
-  vmImage: windows-latest
+  Default
 
 stages:
 - stage: BuildAndDeploy
