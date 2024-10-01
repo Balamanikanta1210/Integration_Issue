@@ -14,22 +14,14 @@ trigger:
 pool:
   Default
 
-stages:
-- stage: BuildAndDeploy
-  jobs:
-  - job: BuildAndDeployPackage
-    steps:
-    #- task: UiPathInstallPlatform@3
-    #  inputs:
-    #    cliVersion: 'WIN_22.10.8438.32859'
-    - task: UiPathInstallPlatform@4
-      inputs:
-        cliVersion: 'WIN_23.10.8894.39673'
-
-    - task: UiPathPack@4
-      displayName: Run Workflow Analysis and Pack Sourcecode
-      inputs:
-        versionType: 'AutoVersion'
-        projectJsonPath: '$(Build.SourcesDirectory)\1359-ocr-for-invoice-processing-cxm-Performer - Not working'
-        outputPath: '$(Build.ArtifactStagingDirectory)'
-        traceLevel: 'Information'
+steps:
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+      
+- task: UiPathPack@4
+  inputs:
+    versionType: 'AutoVersion'
+    projectJsonPath: '$(Build.SourcesDirectory)'
+    outputPath: '$(Build.ArtifactStagingDirectory)\Output'
